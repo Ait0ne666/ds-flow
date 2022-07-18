@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "DarkSun Flow",
   "bin": {
-    "ds-flow": "bin/cli.js"
+    "ds-flow": "lib/cli.js"
   },
   "files": [
     "lib/**/*",
@@ -12,7 +12,7 @@
   "scripts": {
     "format": "prettier --write src/**/*.ts ",
     "lint": "eslint --fix src/**/*.ts ",
-    "build": "rimraf ./lib &&  rimraf ./bin && tsc && cp -r ./dist/bin ./ && cp -r ./dist/lib ./ && rm -rf ./dist",
+    "build": "rimraf ./lib &&  rimraf ./bin && tsc ",
     "test": "ts-mocha",
     "prepublishOnly": "yarn lint && yarn build"
   },
