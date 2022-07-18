@@ -64,7 +64,7 @@ function stepAddPostMergeHook(): Promise<void> {
         console.log('...adding post-merge hook');
         (async () => {
             try {
-                await runCmd('npx', ['husky', 'add', '.husky/post-merge', '^"npm run post-merge^"']);
+                await runCmd('npx', ['husky', 'add', '.husky/post-merge', '"npm run post-merge^"']);
                 resolve();
             } catch (error) {
                 const lerror = new Error(`Adding post-merge hook error [${error}]`);
@@ -81,9 +81,6 @@ function stepAddScripts(): Promise<void> {
             try {
                 const packageJsonFilePath = `${process.cwd()}/package.json`;
                 let packageJson = require(packageJsonFilePath);
-                packageJson.scripts['pre-commit'] = 'tp-flow bump';
-                packageJson.scripts['release'] = 'tp-flow release';
-                packageJson.scripts['prepare'] = 'husky install';
                 fs.writeFileSync(packageJsonFilePath, JSON.stringify(packageJson, null, 2));
                 resolve();
             } catch (error) {
