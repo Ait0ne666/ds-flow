@@ -1,6 +1,6 @@
 {
   "name": "@darksun/ds-flow",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "DarkSun Flow",
   "bin": {
     "ds-flow": "bin/cli.js"
