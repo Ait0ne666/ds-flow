@@ -8,6 +8,7 @@ function help(code: number) {
     log.info(
         LOG_TAG,
         `Usage:
+    ds-flow install
     ds-flow release
     ds-flow bump`
     );
@@ -19,6 +20,7 @@ const [, , cmd, ...args] = process.argv;
 
 // CLI commands
 const cmds: { [key: string]: () => Promise<void> } = {
+    install: commands.install,
     release: commands.release,
     bump: commands.bump,
 };
