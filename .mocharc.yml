@@ -1,2 +1,1 @@
 spec: ./test/**/*.test.ts
-file: ./test/setup.js
