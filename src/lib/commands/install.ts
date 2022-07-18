@@ -81,6 +81,7 @@ function stepAddScripts(): Promise<void> {
             try {
                 const packageJsonFilePath = `${process.cwd()}/package.json`;
                 let packageJson = require(packageJsonFilePath);
+                packageJson.scripts['prepare'] = 'husky install';
                 fs.writeFileSync(packageJsonFilePath, JSON.stringify(packageJson, null, 2));
                 resolve();
             } catch (error) {
