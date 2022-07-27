@@ -19,7 +19,7 @@ function bumpVersion(version: SemVer) {
 
 function stepBumpVersion(): Promise<void> {
     return new Promise((resolve, reject) => {
-        log.info(LOG_TAG, '...bumping version');
+        console.log(LOG_TAG, '...bumping version');
         (async () => {
             try {
                 await git.init();
@@ -27,22 +27,22 @@ function stepBumpVersion(): Promise<void> {
                 if (status.current == 'master') {
                     const packageJsonFilePath = `${process.cwd()}/package.json`;
                     let packageJson = require(packageJsonFilePath);
-                    log.info(LOG_TAG, `Current version: [${packageJson.version}]`);
+                    console.log(LOG_TAG, `Current version: [${packageJson.version}]`);
                     const version = semverParse(packageJson.version);
 
                     if (version === null) {
                         const error = "No version specified in package.json"
-                        log.error(LOG_TAG + '|stempBumpVersion', error)
+                        console.log(LOG_TAG + '|stempBumpVersion', error)
                         throw new Error(error)
                     }
 
                     const nextVersion = bumpVersion(version);
-                    log.info(LOG_TAG, `Next version: [${nextVersion}]`);
+                    console.log(LOG_TAG, `Next version: [${nextVersion}]`);
                     packageJson.version = nextVersion;
                     fs.writeFileSync(packageJsonFilePath, JSON.stringify(packageJson, null, 2));
                     await git.add([`${process.cwd()}/package.json`]);
                 } else {
-                    log.info(LOG_TAG, `Current branch [${status.current}] not 'master' - skipped`);
+                    console.log(LOG_TAG, `Current branch [${status.current}] not 'master' - skipped`);
                 }
                 resolve();
             } catch (error) {

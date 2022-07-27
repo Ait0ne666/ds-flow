@@ -5,7 +5,7 @@ const LOG_TAG = 'DS-FLOW';
 
 // Show usage and exit with code
 function help(code: number) {
-    log.info(
+    console.log(
         LOG_TAG,
         `Usage:
     ds-flow install
@@ -29,7 +29,7 @@ const cmds: { [key: string]: () => Promise<void> } = {
     try {
         cmds[cmd] ? await cmds[cmd]() : help(0);
     } catch (error) {
-        log.error(LOG_TAG, `CLI error [${error}]`);
+        console.log(LOG_TAG, `CLI error [${error}]`);
         process.exit(1);
     }
 })();

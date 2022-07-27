@@ -23,18 +23,18 @@ function bumpMasterVersion(version: SemVer) {
 
 function stepBumpReleaseVersion(): Promise<void> {
     return new Promise((resolve, reject) => {
-        log.info(LOG_TAG, '...bumping release version');
+        console.log(LOG_TAG, '...bumping release version');
         (async () => {
             try {
                 await git.init();
                 const status = await git.status();
                 if (status.current == 'master') {
                     let packageJson = require(g_packageJsonFilePath);
-                    log.info(LOG_TAG, `Current version: [${packageJson.version}]`);
+                    console.log(LOG_TAG, `Current version: [${packageJson.version}]`);
                     const version = semverParse(packageJson.version);
                     if (version && version.major == 0) {
                         g_releaseVersion = bumpReleaseVersion(version);
-                        log.info(LOG_TAG, `Release version: [${g_releaseVersion}]`);
+                        console.log(LOG_TAG, `Release version: [${g_releaseVersion}]`);
                         packageJson.version = g_releaseVersion;
                         fs.writeFileSync(g_packageJsonFilePath, JSON.stringify(packageJson, null, 2));
                     } else {
@@ -54,7 +54,7 @@ function stepBumpReleaseVersion(): Promise<void> {
 
 function stepCreateReleaseBranch(): Promise<void> {
     return new Promise((resolve, reject) => {
-        log.info(LOG_TAG, '...creating release branch');
+        console.log(LOG_TAG, '...creating release branch');
         (async () => {
             try {
                 const releaseBranchName = `release/${g_releaseVersion}`;
@@ -74,18 +74,18 @@ function stepCreateReleaseBranch(): Promise<void> {
 
 function stepBumpMasterVersion(): Promise<void> {
     return new Promise((resolve, reject) => {
-        log.info(LOG_TAG, '...bumping master version');
+        console.log(LOG_TAG, '...bumping master version');
         (async () => {
             try {
                 await git.init();
                 const status = await git.status();
                 if (status.current == 'master') {
                     let packageJson = require(g_packageJsonFilePath);
-                    log.info(LOG_TAG, `Current version: [${packageJson.version}]`);
+                    console.log(LOG_TAG, `Current version: [${packageJson.version}]`);
                     const version = semverParse(packageJson.version);
                     if (version && version.major == 0) {
                         const g_masterVersion = bumpMasterVersion(version);
-                        log.info(LOG_TAG, `Master version: [${g_masterVersion}]`);
+                        console.log(LOG_TAG, `Master version: [${g_masterVersion}]`);
                         packageJson.version = g_masterVersion;
                         fs.writeFileSync(g_packageJsonFilePath, JSON.stringify(packageJson, null, 2));
                     } else {
@@ -105,7 +105,7 @@ function stepBumpMasterVersion(): Promise<void> {
 
 function stepCommitPushMaster(): Promise<void> {
     return new Promise((resolve, reject) => {
-        log.info(LOG_TAG, '...commiting and pushing master');
+        console.log(LOG_TAG, '...commiting and pushing master');
         (async () => {
             try {
                 await git.add([g_packageJsonFilePath]);
